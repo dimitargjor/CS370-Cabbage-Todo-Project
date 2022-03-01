@@ -7,24 +7,43 @@ import datetime
 
 
 #Returns path to ToDo List directory, and creates it if it doesn't exist
-def getDirectory():
+def getDirectory():    
+    import os 
+    import ColorSelection
+    from os.path import expanduser
+    import sys
 
-    #Find user home directory
-    homeDir = expanduser("~")
+    var = sys.platform
 
-    #Join home directory path to desktop
-    desktop = os.path.join(homeDir, "Desktop\\")
+    if (var != 'win32'):
+        DocList = '/var'
+        if os.path.isdir(DocList + "ToDo List\\") == False:
+            os.mkdir(DocList + "ToDo List\\")
+            print("NOTICE:")
+            ColorSelection.prRed("directory Created")
+        TodoDir = os.path.join(DocList, "ToDo List\\")
 
-    #IF the ToDo List directory doesn't exist
-    if os.path.isdir(desktop + "ToDo List\\") == False:
 
-        #Make ToDo List directory
-        os.mkdir(desktop + "ToDo List\\")
+    else:
 
-    #Make variable with ToDo List directory
-    directory = os.path.join(desktop, "ToDo List\\")
-    
-    return directory
+        #Find user home directory
+        homeDir = expanduser("~")
+
+        #Join home directory path to Doccuments
+        Doccuments = os.path.join(homeDir, "Documents\\")
+
+        #IF the ToDo List directory doesn't exist
+        if os.path.isdir(Doccuments + "ToDo List\\") == False:
+            os.mkdir(Doccuments + "ToDo List\\")
+            print("NOTICE:")
+            ColorSelection.prRed("directory Created")
+            #Make ToDo List directory
+
+        #Make variable with ToDo List directory
+        TodoDir = os.path.join(Doccuments, "ToDo List\\")
+
+        #Return ToDo List directory
+    return TodoDir
 
 #Returns workbook for writing in excel file. Creates a new worksheet if it doesn't exist
 def getWorkbook():
