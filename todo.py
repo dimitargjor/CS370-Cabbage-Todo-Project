@@ -1,8 +1,8 @@
 import argparse
-import CommandFunctions
-from PrintColors import PrintColor
+import ListModification
+import ColorSelection
 from pickle import TRUE
-from TerminalControls import Clear
+import UtilFunctions
 
 
 msg= """this progam is designed as a utility tool too keep you on track of your tasks
@@ -20,17 +20,17 @@ parser.add_argument("-m", "--Menu", help = "This will open an interactive menu f
 args = parser.parse_args()
 
 if args.Add and args.Priority:
-    CommandFunctions.ArgNoteInput(args.Add, args.Priority,args.Date)
+    ListModification.ArgNoteInput(args.Add, args.Priority,args.Date)
 
 if args.Read:
-    CommandFunctions.read()
+    ListModification.read()
  
 if args.Menu:
 
-    Clear.cls()
+    UtilFunctions.cls()
 
-    PrintColor.prGreen("Choose a number from the menu options:")
-    PrintColor.prPurple(" 1. Add to Notes \n " +
+    ColorSelection.prGreen("Choose a number from the menu options:")
+    ColorSelection.prPurple(" 1. Add to Notes \n " +
     " 2. Display All Notes \n " +
     " 3. Display High Priority Notes \n " +
     " 4. Clear Notes \n " +
@@ -41,22 +41,22 @@ if args.Menu:
     while (choice != '-1'):
         
         if choice == '1':
-           CommandFunctions.addNotes() 
+           ListModification.addNotes() 
         
         elif choice == '2':
-            CommandFunctions.read()
+            ListModification.read()
 
         elif choice == '3':
-            CommandFunctions.readHigh()
+            ListModification.readHigh()
         
         elif choice == '4':
-            CommandFunctions.clear()
+            ListModification.clear()
 
         else:
-            PrintColor.prRed("ERROR: Invalid Input.\n")
+            ColorSelection.prRed("ERROR: Invalid Input.\n")
     
-        PrintColor.prGreen("\n" + "Choose a number from the menu options:")
-        PrintColor.prPurple(" 1. Add to Notes \n " +
+        ColorSelection.prGreen("\n" + "Choose a number from the menu options:")
+        ColorSelection.prPurple(" 1. Add to Notes \n " +
         " 2. Display All Notes \n " +
         " 3. Display High Priority Notes \n " +
         " 4. Clear Notes \n " +
