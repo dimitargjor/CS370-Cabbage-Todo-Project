@@ -77,7 +77,6 @@ def read():
     else:
         ColorSelection.prRed("ERROR: File Does Not Exist, You Do Not Have A To-Do List")
 
-
 def readHigh():
     UtilFunctions.cls()
     if (exists(todoDir + 'Notes.xlsx')):
