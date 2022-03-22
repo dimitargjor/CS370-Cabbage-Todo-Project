@@ -29,18 +29,17 @@ def getDirectory():
         #Find user home directory
         homeDir = expanduser("~")
 
-        #Join home directory path to Doccuments
-        Doccuments = os.path.join(homeDir, "Documents\\")
+        #Join home directory path to Documents
+        docPath = os.path.join(homeDir, "Documents\\")
 
         #IF the ToDo List directory doesn't exist
-        if os.path.isdir(Doccuments + "ToDo List\\") == False:
-            os.mkdir(Doccuments + "ToDo List\\")
-            print("NOTICE:")
-            ColorSelection.prRed("directory Created")
+        if os.path.isdir(docPath + "ToDo List\\") == False:
+            os.mkdir(docPath + "ToDo List\\")
+            ColorSelection.prRed("\nNOTICE: Directory Created in 'Documents'\n")
             #Make ToDo List directory
 
         #Make variable with ToDo List directory
-        TodoDir = os.path.join(Doccuments, "ToDo List\\")
+        TodoDir = os.path.join(docPath, "ToDo List\\")
 
         #Return ToDo List directory
     return TodoDir
@@ -51,9 +50,9 @@ def getWorkbook():
     todoDir = getDirectory()
 
     #Instance variables
-    descColumn = "A"
+    dateColumn = "A"
     prioColumn = "B"
-    dateColumn = "C"
+    descColumn = "C"
 
     if(exists(todoDir + 'Notes.xlsx')):
         workbook = load_workbook(todoDir + 'Notes.xlsx')
