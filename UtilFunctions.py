@@ -1,17 +1,13 @@
-import os 
+import os, sys
 from os.path import expanduser
 from openpyxl import Workbook, load_workbook
 from os.path import exists
 from openpyxl.styles import Font
 import datetime
-
+import ColorSelection
 
 #Returns path to ToDo List directory, and creates it if it doesn't exist
 def getDirectory():    
-    import os 
-    import ColorSelection
-    from os.path import expanduser
-    import sys
 
     var = sys.platform
 
@@ -56,7 +52,7 @@ def getWorkbook():
 
     if(exists(todoDir + 'Notes.xlsx')):
         workbook = load_workbook(todoDir + 'Notes.xlsx')
-        worksheet =  workbook.active
+        #worksheet =  workbook.active
 
     else:
 

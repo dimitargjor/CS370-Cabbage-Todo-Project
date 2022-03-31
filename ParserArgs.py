@@ -1,8 +1,10 @@
 import argparse
-import ListModification
 import ColorSelection
-from pickle import TRUE
 import UtilFunctions
+import Clear, Edit, Read, Add
+
+
+workbook = UtilFunctions.getWorkbook()
 
 def userArgs():
     msg= """this progam is designed as a utility tool too keep you on track of your tasks
@@ -23,58 +25,58 @@ def userArgs():
     args = parser.parse_args()
 
     if args.Add and args.Priority:
-        ListModification.ArgNoteInput(args.Add, args.Priority,args.Date)
+        Add.argAddItem(args.Add, args.Priority, args.Date, workbook)
 
     if args.Read:
-        ListModification.read()
+        Read.read(workbook)
     
     if args.Clear:
-        ListModification.clear()
+        Clear.clear(workbook)
 
     if args.ClearAll:
-        ListModification.clearAll()
+        Clear.clearAll(workbook)
 
     if args.Edit:
-        ListModification.edit()
+        Edit.edit(workbook)
     
     if args.Menu:
 
         UtilFunctions.cls()
 
         ColorSelection.prGreen(" Choose a number from the menu options:")
-        ColorSelection.prPurple(" 1. Add to Notes \n " +
-        " 2. Display All Notes \n " +
-        " 3. Display High Priority Notes \n " +
-        " 4. Edit Item \n " + 
-        " 5. Clear Notes \n " +
-        "-1. Quit")
+        ColorSelection.prPurple(" 1. Add to Notes. \n " +
+        " 2. Display All Notes. \n " +
+        " 3. Display High Priority Notes. \n " +
+        " 4. Edit Item. \n " + 
+        " 5. Clear Notes. \n " +
+        "-1. Quit.")
 
         choice = input("\n" + " Your Input: ")
 
         while (choice != '-1'):
             
             if choice == '1':
-                ListModification.addNotes() 
+                Add.addItem(workbook) 
             
             elif choice == '2':
-                ListModification.read()
+                Read.read(workbook)
 
             elif choice == '3':
-                ListModification.readHigh()
+                Read.readHigh(workbook)
 
             elif choice == '4':
-                ListModification.edit()
+                Edit.edit(workbook)
             
             elif choice == '5':
                 UtilFunctions.cls()
                 ColorSelection.prGreen("What would you like to delete?")
-                ColorSelection.prPurple(" 1. A single To-Do List row\n" + "  2. The entire To-Do List\n" + " -1. Quit\n")
+                ColorSelection.prPurple(" 1. A singular item.\n" + "  2. The entire list.\n" + " -1. Quit.\n")
                 deleteType = input("  Your Input: ")
                 
                 if(deleteType == '1'):
-                    ListModification.clear()
+                    Clear.clear(workbook)
                 elif(deleteType == '2'):
-                    ListModification.clearAll()
+                    Clear.clearAll(workbook)
                 else:
                     ColorSelection.prRed("\nDeletion Cancelled.\n")
 
@@ -83,11 +85,11 @@ def userArgs():
         
             ColorSelection.prGreen("\n" + " Choose a number from the menu options:")
             ColorSelection.prPurple(" 1. Add to Notes \n " +
-            " 2. Display All Notes \n " +
-            " 3. Display High Priority Notes \n " +
-            " 4. Edit Item \n " + 
-            " 5. Clear Notes \n " +
-            "-1. Quit")
+            " 2. Display All Notes. \n " +
+            " 3. Display High Priority Notes. \n " +
+            " 4. Edit Item. \n " + 
+            " 5. Clear Notes. \n " +
+            "-1. Quit.")
             
             choice = input(" Your Input: ")
 
