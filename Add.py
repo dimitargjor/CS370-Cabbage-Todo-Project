@@ -128,6 +128,13 @@ def addItem(workbook):
     if(date == '-1'):
         date = "None"
 
+    #u'\u2713' - check mark
+    #u'\u25CB' - circle
+    #\u2717 - cross
+    #25EF
+    #26AA
+    #20DD
+
     #Write the todo list item to excel spreadsheet
     worksheet[descColumn + str(currRow)] = description
     worksheet[prioColumn + str(currRow)] = priority

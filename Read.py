@@ -63,7 +63,7 @@ def readHigh(workbook):
     if (UtilFunctions.checkExistence()):
         spaceString = ""
 
-        header = ""
+        header = "    "
         for row in worksheet[1]:
             header += row.value
             header += "            "
@@ -73,6 +73,14 @@ def readHigh(workbook):
         for row in worksheet.iter_rows():
 
             if row[1].value == 'High':
+
+                index = row[0].row - 1
+
+                if (index < 10): 
+                    print(" " + str(index) + ". ", end="")
+                else:
+                    print(str(index) + ". ", end="")
+
                 for cell in row:
                     space = 20 - len(str(cell.value))
                     for i in range(space):
