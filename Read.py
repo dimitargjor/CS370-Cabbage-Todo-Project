@@ -66,6 +66,12 @@ def readHigh(workbook):
         header = "    "
         for row in worksheet[1]:
             header += row.value
+
+            if(len(str(row.value)) < 8):
+                space = 8 - len(str(row.value))
+                for i in range(space):
+                    header += " "
+
             header += "            "
 
         print(header + "\n")

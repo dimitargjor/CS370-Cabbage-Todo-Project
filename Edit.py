@@ -56,10 +56,10 @@ def edit(workbook):
                 if(newDesc != '-1'):
                     worksheet[descColumn + str(selection)] = newDesc
                     ColorSelection.prCyan("\nItem edited successfully.\n")
-                    workbook.save(todoDir + 'Notes.xlsx') 
+                    workbook.save(todoDir + 'Notes.xlsx')
                 else:
                     ColorSelection.prRed("\nItem edit cancelled.\n")
-            
+
             elif(editType == '2'):
 
                 UtilFunctions.cls()

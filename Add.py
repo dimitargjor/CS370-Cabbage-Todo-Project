@@ -1,12 +1,24 @@
 import ColorSelection, UtilFunctions
+from datetime import date, datetime
 
 todoDir = UtilFunctions.getDirectory()
 
 #Instance variables
+dateToday = date.today()
+todayString = dateToday.strftime("%m/%d/%Y")
+
 dateColumn = "A"
 prioColumn = "B"
-descColumn = "C"
+statColumn = "C"
+descColumn = "D"
 
+complete = u'\u2713'
+incomplete = u'\u25CB'
+overdue = '\u2613'
+
+#######################################
+#argAddItem
+#######################################   
 def argAddItem(listNotes, listPriority, listDate, workbook):
 
     worksheet = workbook.active
@@ -62,9 +74,18 @@ def argAddItem(listNotes, listPriority, listDate, workbook):
     else:
         date = "None"
 
+    inputDate = datetime.strptime(date, "%m/%d/%Y")
+    today = datetime.strptime(todayString, "%m/%d/%Y")
+
+    if(date == "None" or inputDate > today):
+        status = incomplete
+    else:
+        status = overdue
+
     #Write the todo list item to excel spreadsheet
     worksheet[descColumn + str(currRow)] = description
     worksheet[prioColumn + str(currRow)] = priority
+    worksheet[statColumn + str(currRow)] = status
     worksheet[dateColumn + str(currRow)] = date
 
     #Save the excel document
@@ -73,6 +94,10 @@ def argAddItem(listNotes, listPriority, listDate, workbook):
     print ("\n Item    : " + description + "\n Priority: " + priority + "\n Due Date: " + date)
     ColorSelection.prGreen("Added Successfully.\n")
 
+
+#######################################
+#addItem
+#######################################   
 def addItem(workbook):
 
     worksheet = workbook.active
@@ -124,19 +149,25 @@ def addItem(workbook):
         ColorSelection.prGreen("Input a due date (MM/DD/YYYY) or '-1' to skip.")
         date = input(" Your Input: ")
 
-
     if(date == '-1'):
         date = "None"
+    else:
+        parsedDate = datetime.strptime(date, "%m/%d/%Y")
 
-    #u'\u2713' - check mark
-    #u'\u25CB' - circle
-    #\u2717 - cross
-    #25EF
-    #26AA
-    #20DD
+    #today's date
+    today = datetime.strptime(todayString, "%m/%d/%Y")
+
+    #If input date is after today's date
+    if(date == "None" or parsedDate > today):
+        status = incomplete
+
+    #if input date is past today's date
+    else:
+        status = overdue
 
     #Write the todo list item to excel spreadsheet
     worksheet[descColumn + str(currRow)] = description
+    worksheet[statColumn + str(currRow)] = status
     worksheet[prioColumn + str(currRow)] = priority
     worksheet[dateColumn + str(currRow)] = date
 

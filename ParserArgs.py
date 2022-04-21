@@ -3,13 +3,14 @@ import ColorSelection
 import UtilFunctions
 import Clear, Edit, Read, Add
 
-
 workbook = UtilFunctions.getWorkbook()
 
-def userArgs():
+def todoFunc():
+
+    UtilFunctions.checkCurrDate(workbook)
+
     msg= """this progam is designed as a utility tool too keep you on track of your tasks
             For quick input use the following shortcuts on the commandline"""
-
 
     parser= argparse.ArgumentParser(description = msg)
 
@@ -29,7 +30,7 @@ def userArgs():
 
     if args.Read:
         Read.read(workbook)
-    
+
     if args.Clear:
         Clear.clear(workbook)
 

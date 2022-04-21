@@ -1,7 +1,7 @@
-from ParserArgs import userArgs
+from ParserArgs import todoFunc
 
 def main():
-    userArgs()
+    todoFunc()
 
 if __name__ == "__main__":
     main()

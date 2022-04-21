@@ -12,13 +12,12 @@ def getDirectory():
     var = sys.platform
 
     if (var != 'win32'):
-        DocList = '/var'
-        if os.path.isdir(DocList + "ToDo List\\") == False:
-            os.mkdir(DocList + "ToDo List\\")
+        docList = '/var'
+        if os.path.isdir(docList + "ToDo List\\") == False:
+            os.mkdir(docList + "ToDo List\\")
             print("NOTICE:")
             ColorSelection.prRed("directory Created")
-        TodoDir = os.path.join(DocList, "ToDo List\\")
-
+        TodoDir = os.path.join(docList, "ToDo List\\")
 
     else:
 
@@ -48,9 +47,11 @@ def getWorkbook():
     #Instance variables
     dateColumn = "A"
     prioColumn = "B"
-    descColumn = "C"
+    statColumn = "C"
+    descColumn = "D"
 
     if(exists(todoDir + 'Notes.xlsx')):
+        
         workbook = load_workbook(todoDir + 'Notes.xlsx')
         #worksheet =  workbook.active
 
@@ -65,16 +66,19 @@ def getWorkbook():
         worksheet.column_dimensions[descColumn].width = 20
         worksheet.column_dimensions[prioColumn].width = 15
         worksheet.column_dimensions[dateColumn].width = 15
+        worksheet.column_dimensions[statColumn].width = 15
 
         #Set headings style
         worksheet[descColumn + "1"].font = Font(color = "00800080", bold = True)
         worksheet[prioColumn + "1"].font = Font(color = "00800080", bold = True) 
         worksheet[dateColumn + "1"].font = Font(color = "00800080", bold = True) 
+        worksheet[statColumn + "1"].font = Font(color = "00800080", bold = True) 
 
         #Set column headings
         worksheet[descColumn + "1"] = "Description"
         worksheet[prioColumn + "1"] = "Priority"
         worksheet[dateColumn + "1"] = "Due Date"
+        worksheet[statColumn + "1"] = "Status"
 
         workbook.save(todoDir + 'Notes.xlsx')
 
@@ -94,20 +98,47 @@ def checkExistence():
 
 #Function that checks if a valid date was entered
 def checkDate(dateInput):
-
+    
     output = True
 
     try:
         month, day, year = dateInput.split('/')
         try:
-            datetime.datetime(int(year), int(month), int(day))
+            hello = datetime.datetime(int(year), int(month), int(day))
+
         except ValueError:
             output = False
     except ValueError:
         output = False
 
+    if(output == True and len(year) < 4):
+        output = False
+
     return output
 
+def checkCurrDate(workbook):
+
+    from datetime import date, datetime
+
+    worksheet = workbook.active
+    statColumn = "c"
+    overdue = '\u2613'
+
+    todayDate = date.today()
+    todayString = todayDate.strftime("%m/%d/%Y")
+    today = datetime.strptime(todayString, "%m/%d/%Y")
+
+    for cell in worksheet["A"]:
+
+        currRow = cell.row
+
+        if currRow > 1:
+
+            parsedDate = datetime.strptime(cell.value, "%m/%d/%Y")
+
+            if(parsedDate < today):
+
+                worksheet[statColumn + str(currRow)] = overdue 
 
 def cls():  
     os.system('cls' if os.name == 'nt' else 'clear')
