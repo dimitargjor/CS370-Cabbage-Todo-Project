@@ -12,12 +12,12 @@ def getDirectory():
     var = sys.platform
 
     if (var != 'win32'):
-        docList = '/var'
-        if os.path.isdir(docList + "ToDo List\\") == False:
-            os.mkdir(docList + "ToDo List\\")
+        docList = '~/'
+        if os.path.isdir(docList + "ToDo List/") == False:
+            os.mkdir(docList + "ToDo List/")
             print("NOTICE:")
             ColorSelection.prRed("directory Created")
-        TodoDir = os.path.join(docList, "ToDo List\\")
+        TodoDir = os.path.join(docList, "ToDo List/")
 
     else:
 
@@ -120,9 +120,12 @@ def checkCurrDate(workbook):
 
     from datetime import date, datetime
 
+
+    todoDir = getDirectory()
     worksheet = workbook.active
     statColumn = "c"
     overdue = '\u2613'
+    incomplete = u'\u25CB'
 
     todayDate = date.today()
     todayString = todayDate.strftime("%m/%d/%Y")
@@ -132,13 +135,14 @@ def checkCurrDate(workbook):
 
         currRow = cell.row
 
-        if currRow > 1:
+        if currRow > 1 and cell.value != 'None':
 
             parsedDate = datetime.strptime(cell.value, "%m/%d/%Y")
 
-            if(parsedDate < today):
+            if(worksheet[statColumn + str(currRow)] == incomplete and parsedDate < today):
 
-                worksheet[statColumn + str(currRow)] = overdue 
+                worksheet[statColumn + str(currRow)] = overdue
+                workbook.save(todoDir + 'Notes.xlsx')
 
 def cls():  
     os.system('cls' if os.name == 'nt' else 'clear')

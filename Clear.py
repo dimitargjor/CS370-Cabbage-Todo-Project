@@ -41,7 +41,7 @@ def clear(workbook):
                 spaceString = ""
             print("")
 
-            ColorSelection.prGreen("\nAre you sure you want to delete this row? (Y / Any other key)")
+            ColorSelection.prGreen("\nAre you sure you want to delete this row? (Y / N)")
             answer = input("Your Input: ")
             answer = answer.lower()
             if(answer == "y"):
@@ -50,7 +50,7 @@ def clear(workbook):
 
                 workbook.save(todoDir + 'Notes.xlsx')
 
-                ColorSelection.prCyan("\nRow deleted successfully.")
+                ColorSelection.prCyan("\nRow deleted successfully.\n")
             else:
                 ColorSelection.prRed("\nCancelled row deletion.")
         else:
@@ -64,7 +64,7 @@ def clearAll(workbook):
     worksheet = workbook.active
 
     UtilFunctions.cls()
-    ColorSelection.prRed("WARNING: Are you sure you want to clear all of your To-Do List items? (Y / Any other key)")
+    ColorSelection.prRed("WARNING: Are you sure you want to clear all of your To-Do List items? (Y / N)")
     choice = input(" Your Input: ")
     choice = choice.lower()
     if choice == 'y':

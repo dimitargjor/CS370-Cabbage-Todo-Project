@@ -2,6 +2,19 @@ import UtilFunctions
 from datetime import datetime
 from datetime import date
 import Read
+
+
+import ColorSelection
+
+def prTest(skk): 
+    print("\033[94m {}\033[00m" .format(skk))
+
+prTest("Hello")
+ColorSelection.prCyan("Hello")
+ColorSelection.prGreen("Hello")
+print (u'\u02E3')
+print(u'\u00D7')
+print("x")
 """
 tempDate = "04/06/2022"   
 
@@ -18,7 +31,7 @@ if (dns > input):
     print ("Passed")
 else:
     print ("Fail")
-"""
+
 workbook = UtilFunctions.getWorkbook()
 
 print (Read.read(workbook))
@@ -41,4 +54,5 @@ for cell in worksheet["A"]:
         if(parsedDate < today):
 
         # worksheet[statColumn + str(currRow)] = overdue
-            print(worksheet["A" + str(currRow)].value)
+            print(worksheet["A" + str(currRow)].value)"""
+

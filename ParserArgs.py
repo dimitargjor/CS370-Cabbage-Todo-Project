@@ -1,7 +1,7 @@
 import argparse
 import ColorSelection
 import UtilFunctions
-import Clear, Edit, Read, Add
+import Clear, Edit, Read, Add, Complete
 
 workbook = UtilFunctions.getWorkbook()
 
@@ -44,12 +44,13 @@ def todoFunc():
 
         UtilFunctions.cls()
 
-        ColorSelection.prGreen(" Choose a number from the menu options:")
-        ColorSelection.prPurple(" 1. Add to Notes. \n " +
-        " 2. Display All Notes. \n " +
-        " 3. Display High Priority Notes. \n " +
+        ColorSelection.prGreen("Choose a number from the menu options:")
+        ColorSelection.prPurple(" 1. Add an Item. \n " +
+        " 2. Mark Completed Item/s. \n " + 
+        " 3. Delete Item/s. \n " +
         " 4. Edit Item. \n " + 
-        " 5. Clear Notes. \n " +
+        " 5. Display All Items. \n " +
+        " 6. Display High Priority Items. \n " +
         "-1. Quit.")
 
         choice = input("\n" + " Your Input: ")
@@ -58,38 +59,42 @@ def todoFunc():
             
             if choice == '1':
                 Add.addItem(workbook) 
-            
+
             elif choice == '2':
-                Read.read(workbook)
+                Complete.markComplete(workbook)
 
             elif choice == '3':
-                Read.readHigh(workbook)
-
-            elif choice == '4':
-                Edit.edit(workbook)
-            
-            elif choice == '5':
                 UtilFunctions.cls()
                 ColorSelection.prGreen("What would you like to delete?")
                 ColorSelection.prPurple(" 1. A singular item.\n" + "  2. The entire list.\n" + " -1. Quit.\n")
                 deleteType = input("  Your Input: ")
-                
+
                 if(deleteType == '1'):
                     Clear.clear(workbook)
                 elif(deleteType == '2'):
                     Clear.clearAll(workbook)
                 else:
                     ColorSelection.prRed("\nDeletion Cancelled.\n")
+ 
+            elif choice == '4':
+                Edit.edit(workbook)               
+            
+            elif choice == '5':
+                Read.read(workbook)
+
+            elif choice == '6':
+                Read.readHigh(workbook) 
 
             else:
                 ColorSelection.prRed("ERROR: Invalid Input.\n")
-        
-            ColorSelection.prGreen("\n" + " Choose a number from the menu options:")
-            ColorSelection.prPurple(" 1. Add to Notes \n " +
-            " 2. Display All Notes. \n " +
-            " 3. Display High Priority Notes. \n " +
+            
+            ColorSelection.prGreen("Choose a number from the menu options:")
+            ColorSelection.prPurple(" 1. Add an Item. \n " +
+            " 2. Mark Completed Item/s. \n " + 
+            " 3. Delete Item/s. \n " +
             " 4. Edit Item. \n " + 
-            " 5. Clear Notes. \n " +
+            " 5. Display All Items. \n " +
+            " 6. Display High Priority Items. \n " +
             "-1. Quit.")
             
             choice = input(" Your Input: ")

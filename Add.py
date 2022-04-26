@@ -67,14 +67,19 @@ def argAddItem(listNotes, listPriority, listDate, workbook):
 
     #Check if entered date is valid
     if(date != None):
-        while(not UtilFunctions.checkDate(date)):
-            ColorSelection.prRed("ERROR: Date Entered Is Invalid")
-            ColorSelection.prCyan("Input a due date (MM/DD/YYYY):")
-            date = input()
-    else:
-        date = "None"
+        while(date != '-1' and not UtilFunctions.checkDate(date)):
 
-    inputDate = datetime.strptime(date, "%m/%d/%Y")
+            ColorSelection.prRed("\nERROR: Date Entered Is Invalid\n")
+            ColorSelection.prGreen("Input a due date (MM/DD/YYYY):")
+            date = input(" Your Input: ")
+    #else:
+        #date = "None"
+
+    if date == '-1' or date == None:
+        date = "None"
+    else:
+        inputDate = datetime.strptime(date, "%m/%d/%Y")
+
     today = datetime.strptime(todayString, "%m/%d/%Y")
 
     if(date == "None" or inputDate > today):
@@ -92,7 +97,7 @@ def argAddItem(listNotes, listPriority, listDate, workbook):
     workbook.save(todoDir + 'Notes.xlsx')
 
     print ("\n Item    : " + description + "\n Priority: " + priority + "\n Due Date: " + date)
-    ColorSelection.prGreen("Added Successfully.\n")
+    ColorSelection.prCyan("Added Successfully.\n")
 
 
 #######################################
@@ -175,4 +180,4 @@ def addItem(workbook):
     workbook.save(todoDir + 'Notes.xlsx')
 
     print ("\n Item    : " + description + "\n Priority: " + priority + "\n Due Date: " + date)
-    ColorSelection.prGreen("Added Successfully.\n")
+    ColorSelection.prCyan("Added Successfully.\n")

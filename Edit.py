@@ -41,8 +41,8 @@ def edit(workbook):
                 spaceString = ""
             print("")
 
-            ColorSelection.prPurple("\nWhich attribute would you like to update?")
-            ColorSelection.prGreen("1. Description \n" + 
+            ColorSelection.prGreen("\nWhich attribute would you like to update?")
+            ColorSelection.prPurple("1. Description \n" + 
                                    " 2. Priority \n" + 
                                    " 3. Due Date \n")
 
