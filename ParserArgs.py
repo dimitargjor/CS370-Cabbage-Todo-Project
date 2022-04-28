@@ -9,24 +9,24 @@ def todoFunc():
 
     UtilFunctions.checkCurrDate(workbook)
 
-    msg= """this progam is designed as a utility tool too keep you on track of your tasks
-            For quick input use the following shortcuts on the commandline"""
+    msg= "A command-line based utility tool geared towards software developers, allowing a user to configure a To-Do list of items."
 
     parser= argparse.ArgumentParser(description = msg)
 
-    parser.add_argument("-a", "--Add", help = "Add item to list")
-    parser.add_argument("-p", "--Priority", help = "this will give a priority to the item you would like to add")
-    parser.add_argument("-d", "--Date", help = "This will add a due date to your list")
-    parser.add_argument("-r", "--Read", help = "This will print your to-do list to the terminal", action="store_true")
-    parser.add_argument("-m", "--Menu", help = "This will open an interactive menu for input", action="store_true")
-    parser.add_argument("-c", "--Clear", help = "This will open prompt to delete one item from list", action="store_true")
-    parser.add_argument("-ca", "--ClearAll", help = "This will open clear the entire To-Do list", action="store_true")
-    parser.add_argument("-e", "--Edit", help = "This will open prompt to edit a item's attribute", action="store_true")
+    parser.add_argument("-add", "--Add", help = "Add item to list.")
+    parser.add_argument("-p", "--Priority", help = "Specify item priority (Low/Medium/High).")
+    parser.add_argument("-c", "--Category", help = "Specify what developer category item belongs to.")
+    parser.add_argument("-d", "--Date", help = "Add due date for item in format mm/dd/yyyy.")
+    parser.add_argument("-r", "--Read", help = "Display the full To-Do list.", action="store_true")
+    parser.add_argument("-m", "--Menu", help = "Open interactive menu with all modification features included.", action="store_true")
+    parser.add_argument("-cl", "--Clear", help = "Open prompt to delete a single item in the list.", action="store_true")
+    parser.add_argument("-cla", "--ClearAll", help = "Open prompt to delete the entire To-Do list", action="store_true")
+    parser.add_argument("-e", "--Edit", help = "Open prompt to edit a specific item in the list. ", action="store_true")
 
     args = parser.parse_args()
 
-    if args.Add and args.Priority:
-        Add.argAddItem(args.Add, args.Priority, args.Date, workbook)
+    if args.Add:
+        Add.argAddItem(args.Add, args.Priority, args.Category, args.Date, workbook)
 
     if args.Read:
         Read.read(workbook)

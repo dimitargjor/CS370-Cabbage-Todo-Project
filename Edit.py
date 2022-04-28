@@ -6,11 +6,14 @@ todoDir = UtilFunctions.getDirectory()
 #Instance variables
 dateColumn = "A"
 prioColumn = "B"
-descColumn = "C"
+statColumn = "C"
+catColumn = "D"
+descColumn = "E"
 
 def edit(workbook):
 
     worksheet = workbook.active
+    categories = UtilFunctions.getCategories()
 
     UtilFunctions.cls()
 
@@ -43,8 +46,9 @@ def edit(workbook):
 
             ColorSelection.prGreen("\nWhich attribute would you like to update?")
             ColorSelection.prPurple("1. Description \n" + 
-                                   " 2. Priority \n" + 
-                                   " 3. Due Date \n")
+                                   " 2. Priority \n" +
+                                   " 3. Category \n" +
+                                   " 4. Due Date \n")
 
             editType = input("Your Input: ")
 
@@ -87,13 +91,32 @@ def edit(workbook):
                     ColorSelection.prCyan("\nPriority successfully changed.\n")
 
                 else:
-                    ColorSelection.prRed("\nPriority change cancelled.\n")
+                    ColorSelection.prRed("\nInvalid priority selected. File edit cancelled.\n")
 
-            elif(editType == "3"):
+            elif(editType == '3'):
+
+                UtilFunctions.cls()
+                UtilFunctions.displayCategories()
+                categoryIndex = input( " Your Input: ")
+
+                if(int(categoryIndex) >= 1 and int(categoryIndex) <= 10):
+                    
+                    category = categories[int(categoryIndex) - 1 ]    
+
+                    worksheet[catColumn + str(selection)] = category
+                    workbook.save(todoDir + 'Notes.xlsx')
+
+                    ColorSelection.prCyan("\nCategory successfully changed.\n")
+
+                else:
+                    ColorSelection.prRed("\nInvalid category entered. File edit cancelled.\n")
+
+
+            elif(editType == "4"):
 
                 UtilFunctions.cls()
                 ColorSelection.prGreen("What will the new Due Date be? (MM/DD/YYYY)")
-                date = input()
+                date = input(" Your Input: ")
                 if(UtilFunctions.checkDate(date)):
 
                         worksheet[dateColumn + str(selection)] = date

@@ -48,7 +48,8 @@ def getWorkbook():
     dateColumn = "A"
     prioColumn = "B"
     statColumn = "C"
-    descColumn = "D"
+    catColumn = "D"
+    descColumn = "E"
 
     if(exists(todoDir + 'Notes.xlsx')):
         
@@ -63,15 +64,17 @@ def getWorkbook():
         worksheet.title = "ToDo List"
 
         #Set column length
-        worksheet.column_dimensions[descColumn].width = 20
-        worksheet.column_dimensions[prioColumn].width = 15
-        worksheet.column_dimensions[dateColumn].width = 15
-        worksheet.column_dimensions[statColumn].width = 15
+        worksheet.column_dimensions[dateColumn].width = 12
+        worksheet.column_dimensions[prioColumn].width = 10
+        worksheet.column_dimensions[statColumn].width = 10
+        worksheet.column_dimensions[catColumn].width = 15        
+        worksheet.column_dimensions[descColumn].width = 50
 
         #Set headings style
         worksheet[descColumn + "1"].font = Font(color = "00800080", bold = True)
         worksheet[prioColumn + "1"].font = Font(color = "00800080", bold = True) 
-        worksheet[dateColumn + "1"].font = Font(color = "00800080", bold = True) 
+        worksheet[dateColumn + "1"].font = Font(color = "00800080", bold = True)
+        worksheet[catColumn + "1"].font = Font(color = "00800080", bold = True) 
         worksheet[statColumn + "1"].font = Font(color = "00800080", bold = True) 
 
         #Set column headings
@@ -79,6 +82,7 @@ def getWorkbook():
         worksheet[prioColumn + "1"] = "Priority"
         worksheet[dateColumn + "1"] = "Due Date"
         worksheet[statColumn + "1"] = "Status"
+        worksheet[catColumn + "1"] = "Category"
 
         workbook.save(todoDir + 'Notes.xlsx')
 
@@ -143,6 +147,34 @@ def checkCurrDate(workbook):
 
                 worksheet[statColumn + str(currRow)] = overdue
                 workbook.save(todoDir + 'Notes.xlsx')
+
+def getCategories():
+
+    output = ["Analysis",
+              "Design",
+              "Coding",
+              "Algorithms",
+              "Testing" ,
+              "Debugging",
+              "Troubleshooting",
+              "Building", 
+              "Deploying",
+              "Other"]
+
+    return output
+
+def displayCategories():
+
+    categories = getCategories()
+
+    ColorSelection.prGreen("Input a Category:")
+    index = 1
+    for category in categories:
+        if(index < 10):
+            ColorSelection.prPurple(" " + str(index) + ". " + category)
+        else:
+            ColorSelection.prPurple(str(index) + ". " + category)
+        index+=1
 
 def cls():  
     os.system('cls' if os.name == 'nt' else 'clear')

@@ -8,6 +8,8 @@ def markComplete(workbook):
     incomplete = u'\u25CB'
     overdue = '\u2613'
     overdueComplete = u'\u2713' + u'\u00D7'
+
+    
     statColumn = "C"
 
     worksheet = workbook.active

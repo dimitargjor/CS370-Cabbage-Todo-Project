@@ -25,9 +25,15 @@ def clear(workbook):
 
             header = ""
             spaceString = ""
-            for row in worksheet[1]:
-                header += row.value
-                header += "            "
+            for cell in worksheet[1]:
+
+                #CHANGE LATER
+                if(cell.value == 'Status'):
+                    header += cell.value
+                    header += "              "                            
+                else:
+                    header += cell.value
+                    header += "            "
 
             print(header + "\n")
 

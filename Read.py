@@ -1,6 +1,12 @@
 import ColorSelection, UtilFunctions
 
 
+complete = u'\u2713'
+incomplete = u'\u25CB'
+overdue = '\u2613'
+overdueComplete = u'\u2713' + u'\u00D7'
+
+
 def read(workbook):
     
     worksheet = workbook.active
@@ -27,6 +33,11 @@ def read(workbook):
                     print(str(index) + ". ", end="")
 
             if(first):
+                print("    Status Legend:\n" + 
+                      "    " + complete + " -  Completed\n" +
+                      "    " + incomplete + " -  Not Completed\n" + 
+                      "    " + overdue + " -  Overdue\n" + 
+                      "    " + overdueComplete + " - Completed but Overdue\n")
                 print("    ", end = "")
 
             #FOR Every cell in the row
@@ -50,6 +61,9 @@ def read(workbook):
             if first == True:
                 print("")
                 first = False
+
+        print("\n")
+        
     else:
         ColorSelection.prRed("ERROR: File Does Not Exist, You Do Not Have A To-Do List")
 
@@ -62,6 +76,12 @@ def readHigh(workbook):
 
     if (UtilFunctions.checkExistence()):
         spaceString = ""
+
+        print("    Status Legend:\n" + 
+        "    " + complete + " -  Completed\n" +
+        "    " + incomplete + " -  Not Completed\n" + 
+        "    " + overdue + " -  Overdue\n" + 
+        "    " + overdueComplete + " - Completed but Overdue\n")
 
         header = "    "
         for row in worksheet[1]:
@@ -95,6 +115,8 @@ def readHigh(workbook):
                     
                     spaceString = ""
                 print("")
+
+        print("\n")
 
     else:
         ColorSelection.prRed("ERROR: File Does Not Exist, You Do Not Have A To-Do List")
