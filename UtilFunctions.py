@@ -9,35 +9,43 @@ import ColorSelection
 #Returns path to ToDo List directory, and creates it if it doesn't exist
 def getDirectory():    
 
-    var = sys.platform
+    osType = sys.platform
 
-    if (var != 'win32'):
-        docList = '~/'
-        if os.path.isdir(docList + "ToDo List/") == False:
-            os.mkdir(docList + "ToDo List/")
-            print("NOTICE:")
-            ColorSelection.prRed("directory Created")
-        TodoDir = os.path.join(docList, "ToDo List/")
+    homeDir = expanduser("~")
+
+    #If Operating system is not windows
+    if (osType != 'win32'):
+
+        #Find path to Todo-List directory
+        todoPath = os.path.join(homeDir, 'Todo-List/')
+
+        #If Todo-List Directory doesn't exist
+        if os.path.isdir(todoPath) == False:
+
+            #Make ToDo List directory
+            os.mkdir(todoPath)
+            ColorSelection.prRed("NOTICE: To-Do List directory created in Home directory.")
+
+        #Return ToDo List directory
+        return todoPath
 
     else:
-
-        #Find user home directory
-        homeDir = expanduser("~")
 
         #Join home directory path to Documents
         docPath = os.path.join(homeDir, "Documents\\")
 
         #IF the ToDo List directory doesn't exist
         if os.path.isdir(docPath + "ToDo List\\") == False:
+
+            #Make ToDo List directory
             os.mkdir(docPath + "ToDo List\\")
             ColorSelection.prRed("\nNOTICE: Directory Created in 'Documents'\n")
-            #Make ToDo List directory
 
         #Make variable with ToDo List directory
-        TodoDir = os.path.join(docPath, "ToDo List\\")
+        fullPath = os.path.join(docPath, "ToDo List\\")
 
         #Return ToDo List directory
-    return TodoDir
+        return fullPath
 
 #Returns workbook for writing in excel file. Creates a new worksheet if it doesn't exist
 def getWorkbook():
